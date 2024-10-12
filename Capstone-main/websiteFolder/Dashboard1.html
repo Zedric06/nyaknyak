@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="moni.css">
+    <link rel="stylesheet" href="inspect.css">
+    <link rel="stylesheet" href="permit.css">
+    <link rel="stylesheet" href="dashboard1.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            transition: width 0.3s ease; /* Smooth transition for collapsing */
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            transition: opacity 0.3s ease;
+            opacity: 1;
+        }
+
+        .sidebar.collapsed h2 {
+            opacity: 0;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar a.active {
+            background-color: #ff6666;
+        }
+
+        .sidebar i {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .sidebar.collapsed a span {
+            display: none;
+        }
+
+        /* Sidebar Toggle Button */
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: -10px; /* Position it outside the sidebar */
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: right 0.3s ease;
+            z-index: 1000; /* Ensure it is above other elements */
+        }
+
+        .sidebar.collapsed .toggle-btn {
+            right: -15px;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: -20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 300px; /* Adjust according to sidebar width */
+            transition: margin-left 0.3s ease; /* Fixed here */
+        }
+
+        .container.collapsed {
+            margin-left: 100px; /* Adjust according to the width of the collapsed sidebar */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-left: 20px; /* Added to ensure proper centering */
+            margin-right: 20px; /* Added to ensure proper centering */
+        }
+
+        /* Statistics Cards */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card span {
+            font-size: 40px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-card i {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        /* Charts */
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Recent Task Table */
+        .task-table-container {
+            margin: 20px 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .filter {
+            float: right;
+            margin-bottom: 10px;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .stats-container, .charts-container {
+                flex-direction: column;
+            }
+
+            .stat-card, .chart-card {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger Menu -->
+<div class="hamburger" id="hamburger">&#9776;</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Food and Safety</h2>
+    <a href="Dashboard1.html"><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="moni.html"><i class="fas fa-store"></i> <span>Market Monitoring and Compliance</span></a>
+    <a href="review.html"><i class="fas fa-star"></i> <span>Market Rating and Review</span></a>
+    <a href="inspect.html"><i class="fas fa-binoculars"></i><span>Market Inspection Results</span></a>
+    <a href="permit.html"><i class="fas fa-certificate"></i><span>Market Certificates and Permits</span></a>
+    <a href="#"><i class="fas fa-map"></i><span>Market Locator</span></a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+
+    <!-- Toggle Button -->
+    <div class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+</div>
+
+<div class="container" id="content">
+    <h1>Food Market Safety and Inspection Management Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card" style="background-color: #ff6666;">
+            <h2>Total Market</h2>
+            <span>50</span>
+            <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div class="stat-card" style="background-color: #66b3ff;">
+            <h2>Total Approved</h2>
+            <span>45</span>
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-card" style="background-color: #ffcc66;">
+            <h2>Total Failed</h2> 
+            <span>5</span>
+            <i class="fas fa-ban"></i>
+        </div>
+        <div class="stat-card" style="background-color: #ffff66;">
+            <h2>Users</h2>
+            <span>50</span>
+            <i class="fas fa-users"></i>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-container">
+        <div class="chart-card">
+            <h3>Admin Monitoring</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-card">
+            <h3>Admin Inspection</h3>
+            <canvas id="doughnutChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Task Table -->
+    <div class="task-table-container">
+        <div class="filter">
+            <label for="filterStatus">Select:</label>
+            <select id="filterStatus">
+                <option value="select">Select an Option</option>
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="failed">Failed</option>
+            </select>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Market 1</td>
+                <td>Pending</td>
+                <td>Meat</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Market 2</td>
+                <td>Approved</td>
+                <td>Meat</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+  <p>&copy;Local Government Unit 46</p>
+</footer>
+
+
+
+<!-- JavaScript -->
+<script>
+  // Bar Chart Initialization
+  const barChartCtx = document.getElementById('barChart').getContext('2d');
+  const barChart = new Chart(barChartCtx, {
+      type: 'bar',
+      data: {
+          labels: ['Total Market', 'Total Approved', 'Total Failed', 'Users'],
+          datasets: [{
+              label: 'Number of Applications',
+              data: [50, 45, 5, 50], // Example data
+              backgroundColor: ['#ff6666', '#66b3ff', '#ffcc66', '#ffff66'],
+              borderColor: ['#ff3333', '#3399ff', '#ff9933', '#ffff33'],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+
+  // Doughnut Chart Initialization
+  const doughnutChartCtx = document.getElementById('doughnutChart').getContext('2d');
+  const doughnutChart = new Chart(doughnutChartCtx, {
+      type: 'doughnut',
+      data: {
+          labels: ['Total Market', 'Total Approved', 'Total Failed', 'Users'],
+          datasets: [{
+              label: 'Application Status',
+              data: [50, 45, 5, 45], // Example data
+              backgroundColor: ['#ff6666', '#66b3ff', '#ffcc66', '#ffff66']
+          }]
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 2
+      }
+  });
+
+  // Sidebar Toggle Functionality
+  const toggleBtn = document.getElementById('toggle-btn');
+  const sidebar = document.getElementById('sidebar');
+  const content = document.getElementById('content');
+  const hamburger = document.getElementById('hamburger');
+
+  function toggleSidebar() {
+      sidebar.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+
+      // Toggle button icon
+      const icon = toggleBtn.querySelector('i');
+      if (sidebar.classList.contains('collapsed')) {
+          icon.classList.remove('fa-chevron-left');
+          icon.classList.add('fa-chevron-right');
+      } else {
+          icon.classList.remove('fa-chevron-right');
+          icon.classList.add('fa-chevron-left');
+      }
+  }
+
+  toggleBtn.addEventListener('click', toggleSidebar);
+  hamburger.addEventListener('click', toggleSidebar);
+</script>
+</body>
+</html>
