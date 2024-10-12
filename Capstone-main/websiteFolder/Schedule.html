@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Markets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="Schedule.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="dashboard1.css">
+
+</head>
+<body>
+    <!-- Hamburger Menu -->
+<div class="hamburger" id="hamburger">&#9776;</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Food and Safety</h2>
+    <a href="Dashboard1.html"><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('monitoring-submenu')">
+        <i class="fas fa-clipboard-list"></i> <span>Market Monitoring and Compliance</span>
+    </a>
+    <div class="sub-menu" id="monitoring-submenu">
+        <a href="Register.html"><i class="fas fa-registered"></i> <span>Registered Market</span></a>
+        <a href="Schedule.html"><i class="fas fa-binoculars"></i> <span>Inspections</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('review-submenu')">
+        <i class="fas fa-star"></i> <span>Market Rating Review</span>
+    </a>
+    <div class="sub-menu" id="review-submenu">
+        <a href="Feedback.html"><i class="fas fa-comment"></i> <span>User Feedback</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('inspection-submenu')">
+        <i class="fas fa-mask"></i> <span>Inspection Results and Overview</span>
+    </a>
+    <div class="sub-menu" id="inspection-submenu">
+        <a href="Reports.html"><i class="fas fa-record-vinyl"></i> <span>Inspection Reports</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('permits-submenu')">
+        <i class="fas fa-certificate"></i> <span>Certificates and Permits</span>
+    </a>
+    <div class="sub-menu" id="permits-submenu">
+        <a href="Permits.html"><i class="fas fa-stamp"></i> <span>Permit Application Tracking</span></a>
+        <a href="Notification.html"><i class="fas fa-bell"></i> <span>Inspection Notifications</span></a>
+    </div>
+    <a>
+        <i class="fas fa-map-marked"></i> <span>Market Category Locator</span>
+    </a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+
+    <!-- Toggle Button -->
+    <div class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+</div>
+        <div class="container">
+            <h1>Inspections</h1>
+            
+            <div class="form-section">
+                <h3>Add Market for Inspection</h3>
+                <input type="text" id="marketName" placeholder="Enter market name" />
+                <button onclick="addMarket()">Add Market</button>
+            </div>
+    
+            <div class="form-section">
+                <h3>Inspect Markets</h3>
+                <select id="marketSelect"></select>
+                <button onclick="inspectMarket()">Inspect Market</button>
+            </div>
+    
+            <div class="form-section">
+                <h3>Schedule Inspection</h3>
+                <input type="date" id="inspectionDate" />
+                <button onclick="scheduleInspection()">Schedule Inspection</button>
+            </div>
+    
+            <div class="form-section">
+                <h3>View Inspection History</h3>
+                <button onclick="viewHistory()">View History</button>
+                <ul id="historyList"></ul>
+            </div>
+    
+            <div class="form-section">
+                <h3>View Inspection Status</h3>
+                <select id="statusSelect"></select>
+                <button onclick="viewStatus()">View Status</button>
+                <p id="statusOutput"></p>
+            </div>
+    
+            <div class="form-section">
+                <h3>View Registered Markets</h3>
+                <button onclick="viewRegisteredMarkets()">View Markets</button>
+                <ul id="registeredMarketsList"></ul>
+            </div>
+    
+        </div>
+    
+        <script src="Schedule.js"></script>
+</body>
+</html>

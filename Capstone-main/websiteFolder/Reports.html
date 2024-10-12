@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection Report Generation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="Reports.css">
+</head>
+<body>
+    <!-- Hamburger Menu -->
+<div class="hamburger" id="hamburger">&#9776;</div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Food and Safety</h2>
+    <a href="Dashboard1.html"><i class="fas fa-home"></i><span>Dashboard</span></a>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('monitoring-submenu')">
+        <i class="fas fa-clipboard-list"></i> <span>Market Monitoring and Compliance</span>
+    </a>
+    <div class="sub-menu" id="monitoring-submenu">
+        <a href="Register.html"><i class="fas fa-registered"></i> <span>Registered Market</span></a>
+        <a href="Schedule.html"><i class="fas fa-binoculars"></i> <span>Inspections</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('review-submenu')">
+        <i class="fas fa-star"></i> <span>Market Rating Review</span>
+    </a>
+    <div class="sub-menu" id="review-submenu">
+        <a href="Feedback.html"><i class="fas fa-comment"></i> <span>User Feedback</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('inspection-submenu')">
+        <i class="fas fa-mask"></i> <span>Inspection Results and Overview</span>
+    </a>
+    <div class="sub-menu" id="inspection-submenu">
+        <a href="Reports.html"><i class="fas fa-record-vinyl"></i> <span>Inspection Reports</span></a>
+    </div>
+    <a href="#" class="menu-item" onclick="toggleSubMenu('permits-submenu')">
+        <i class="fas fa-certificate"></i> <span>Certificates and Permits</span>
+    </a>
+    <div class="sub-menu" id="permits-submenu">
+        <a href="Permits.html"><i class="fas fa-stamp"></i> <span>Permit Application Tracking</span></a>
+        <a href="Notification.html"><i class="fas fa-bell"></i> <span>Inspection Notifications</span></a>
+    </div>
+    <a>
+        <i class="fas fa-map-marked"></i> <span>Market Category Locator</span>
+    </a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+
+    <!-- Toggle Button -->
+    <div class="toggle-btn" id="toggle-btn">
+        <i class="fas fa-chevron-left"></i>
+    </div>
+</div>
+
+    <div class="container">
+        <h1>Inspection Report Generation</h1>
+
+        <form id="report-form">
+            <div>
+                <label for="market-name">Market Name:</label>
+                <input type="text" id="market-name" placeholder="Enter market name" required>
+            </div>
+
+            <div>
+                <label for="inspection-date">Inspection Date:</label>
+                <input type="date" id="inspection-date" required>
+            </div>
+
+            <div>
+                <label for="inspector-name">Inspector Name:</label>
+                <input type="text" id="inspector-name" placeholder="Enter inspector's name" required>
+            </div>
+
+            <button type="submit">Generate Report</button>
+        </form>
+
+        <h2>Generated Reports</h2>
+        <div id="reports-container" class="reports-container"></div>
+    </div>
+
+    <script src="Reports.js"></script>
+</body>
+</html>

@@ -3,16 +3,12 @@ const barChartCtx = document.getElementById('barChart').getContext('2d');
 const barChart = new Chart(barChartCtx, {
     type: 'bar',
     data: {
-        labels: ['Markets', 'Approved', 'Failed', 'Users'],
+        labels: ['Total Market', 'Total Approved', 'Total Failed', 'Users'],
         datasets: [{
             label: 'Number of Applications',
-            data: [50, 45, 5, 50], // Example data matching your stats
-            backgroundColor: [
-                '#ff6666', '#66b3ff', '#ffcc66', '#ffff66'
-            ],
-            borderColor: [
-                '#ff3333', '#3399ff', '#ff9933', '#ffff33'
-            ],
+            data: [50, 45, 5, 50], // Example data
+            backgroundColor: ['#ff6666', '#66b3ff', '#ffcc66', '#ffff66'],
+            borderColor: ['#ff3333', '#3399ff', '#ff9933', '#ffff33'],
             borderWidth: 1
         }]
     },
@@ -30,29 +26,30 @@ const doughnutChartCtx = document.getElementById('doughnutChart').getContext('2d
 const doughnutChart = new Chart(doughnutChartCtx, {
     type: 'doughnut',
     data: {
-        labels: ['Markets', 'Approved', 'Failed', 'Users'],
+        labels: ['Total Market', 'Total Approved', 'Total Failed', 'Users'],
         datasets: [{
             label: 'Application Status',
-            data: [50, 45 , 5, 50], // Example data matching your stats
-            backgroundColor: [
-                '#ff6666', '#66b3ff', '#ffcc66', '#ffff66'
-            ]
+            data: [50, 45, 5, 45], // Example data
+            backgroundColor: ['#ff6666', '#66b3ff', '#ffcc66', '#ffff66']
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: true,
+        aspectRatio: 2
     }
 });
 
+// Sidebar Toggle Functionality
 const toggleBtn = document.getElementById('toggle-btn');
 const sidebar = document.getElementById('sidebar');
 const content = document.getElementById('content');
+const hamburger = document.getElementById('hamburger');
 
-toggleBtn.addEventListener('click', function () {
+function toggleSidebar() {
     sidebar.classList.toggle('collapsed');
     content.classList.toggle('collapsed');
-    
+
     // Toggle button icon
     const icon = toggleBtn.querySelector('i');
     if (sidebar.classList.contains('collapsed')) {
@@ -62,4 +59,17 @@ toggleBtn.addEventListener('click', function () {
         icon.classList.remove('fa-chevron-right');
         icon.classList.add('fa-chevron-left');
     }
-});
+}
+
+toggleBtn.addEventListener('click', toggleSidebar);
+hamburger.addEventListener('click', toggleSidebar);
+
+function toggleSubMenu(submenuId) {
+    const submenu = document.getElementById(submenuId);
+    submenu.classList.toggle('open'); // Toggle open class
+}
+
+document.getElementById('toggle-button').onclick = function() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open'); // Toggle sidebar visibility
+};

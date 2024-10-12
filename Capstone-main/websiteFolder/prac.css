@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    left: -250px; /* Start off-screen */
+    transition: left 0.3s ease; /* Smooth transition */
+    padding: 15px;
+    z-index: 1000;
+}
+
+.sidebar.open {
+    left: 0; /* Move to visible position */
+}
+
+h2 {
+    color: #fff;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 0;
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.sub-menu {
+    display: none; /* Hidden by default */
+    padding-left: 15px; /* Indent for sub-menu */
+    margin: 0; /* Reset margin */
+}
+
+.sub-menu.open {
+    display: block; /* Show when open */
+}
+
+.sub-menu a {
+    color: #ddd; /* Lighter color for sub-menu items */
+    text-decoration: none;
+    padding: 8px 0;
+    display: block; /* Ensure sub-menu items take up full width */
+}
+
+button {
+    margin-left: 260px; /* Space for sidebar */
+    padding: 10px 15px;
+}
