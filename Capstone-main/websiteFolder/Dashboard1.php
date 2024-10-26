@@ -21,29 +21,44 @@
     <a href="#" class="menu-item" onclick="toggleSubMenu('monitoring-submenu')">
         <i class="fas fa-clipboard-list"></i> <span>Market Monitoring and Compliance</span>
     </a>
+
+    <ul>
     <div class="sub-menu" id="monitoring-submenu">
         <a href="Register.html"><i class="fas fa-registered"></i> <span>Registered Market</span></a>
         <a href="Schedule.html"><i class="fas fa-binoculars"></i> <span>Inspections</span></a>
     </div>
-    <a href="#" class="menu-item" onclick="toggleSubMenu('review-submenu')">
+    </ul>
+
+    <a href="#" class="menu-item" onclick="toggleSubMenu('review-submenu')">  
         <i class="fas fa-star"></i> <span>Market Rating Review</span>
     </a>
+    <ul>
     <div class="sub-menu" id="review-submenu">
         <a href="Feedback.html"><i class="fas fa-comment"></i> <span>User Feedback</span></a>
     </div>
+    </ul>
+
     <a href="#" class="menu-item" onclick="toggleSubMenu('inspection-submenu')">
         <i class="fas fa-mask"></i> <span>Inspection Results and Overview</span>
     </a>
+
+    <ul>
     <div class="sub-menu" id="inspection-submenu">
         <a href="Reports.html"><i class="fas fa-record-vinyl"></i> <span>Inspection Reports</span></a>
-    </div>
+    </div> 
+    </ul>
+
     <a href="#" class="menu-item" onclick="toggleSubMenu('permits-submenu')">
         <i class="fas fa-certificate"></i> <span>Certificates and Permits</span>
     </a>
+
+    <ul>
     <div class="sub-menu" id="permits-submenu">
         <a href="Permits.html"><i class="fas fa-stamp"></i> <span>Permit Application Tracking</span></a>
         <a href="Notification.html"><i class="fas fa-bell"></i> <span>Inspection Notifications</span></a>
     </div>
+    </ul>
+    
     <a>
         <i class="fas fa-map-marked"></i> <span>Market Category Locator</span>
     </a>
